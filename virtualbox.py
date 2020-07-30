@@ -38,3 +38,33 @@ def SendTx(privateKey,amount,receiver) {
     res = requests.post(d + "/sendtx",json.dumps(dicti))
     return res.json()
 }
+
+def IsContract(txid) {
+    res = requests.get(d + "/iscontract/" + str(txid))
+    return res.json()
+}
+
+def EstimateContractFuel(code) {
+    res = requests.get(d + "/contractfuel/" + code)
+    return res.json()
+}
+
+def SendContract(privateKey,code) {
+    dicti = {
+        "privateKey" : privateKey,
+        "code" : code
+    }
+    res = requests.post(d + "/sendtx",json.dumps(dicti))
+    return res.json()
+}
+
+def CallContract(txid,privateKey,call,maxAllowance) {
+    dicti = {
+        "txid" : txid,
+        "privateKey" : privateKey,
+        "call" : call,
+        "maxAllowance" : maxAllowance
+    }
+    res = requests.post(d + "/callcontract",json.dumps(dicti))
+    return res.json()
+}
